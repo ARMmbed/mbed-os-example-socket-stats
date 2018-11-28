@@ -33,7 +33,7 @@ void print_stats()
 
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (int i = 0; i < count; i++) {
-            printf("%-15d", num);
+            printf("\n%-15d", num);
             printf("%-15p", stats[i].reference_id);
 
             switch (stats[i].state) {
