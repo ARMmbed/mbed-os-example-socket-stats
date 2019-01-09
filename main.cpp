@@ -16,7 +16,7 @@
 */
 #include "mbed.h"
 
-#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLE) 
+#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLE)
 #error [NOT_SUPPORTED] Socket Statistics not supported
 #endif
 
@@ -27,7 +27,7 @@ void print_stats()
     mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
     static int num = 0;
     int count;
-    
+
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
     printf("%-15s%-15s%-15s%-15s%-15s%-15s%-15s\n", "Num", "ID", "State", "Proto", "Sent", "Recv", "Time");
     while (1) {
@@ -38,16 +38,21 @@ void print_stats()
             printf("%-15p", stats[i].reference_id);
 
             switch (stats[i].state) {
-            case SOCK_CLOSED:
-                printf("%-15s", "Closed"); break;
-            case SOCK_OPEN:
-                printf("%-15s", "Open"); break;
-            case SOCK_CONNECTED:
-                printf("%-15s", "Connected"); break;
-            case SOCK_LISTEN:
-                printf("%-15s", "Listen"); break;
-            default:
-                printf("%-15s", "Error"); break;
+                case SOCK_CLOSED:
+                    printf("%-15s", "Closed");
+                    break;
+                case SOCK_OPEN:
+                    printf("%-15s", "Open");
+                    break;
+                case SOCK_CONNECTED:
+                    printf("%-15s", "Connected");
+                    break;
+                case SOCK_LISTEN:
+                    printf("%-15s", "Listen");
+                    break;
+                default:
+                    printf("%-15s", "Error");
+                    break;
             }
 
             if (NSAPI_TCP == stats[i].proto) {
@@ -64,7 +69,6 @@ void print_stats()
     }
 }
 
-
 // Network interface
 NetworkInterface *net;
 
@@ -79,7 +83,7 @@ int main()
 
     thread->start(print_stats);
     // Bring up the ethernet interface
-    printf("Mbed OS Socket example\n");
+    printf("Mbed OS Socket statistics example\n");
 
 #ifdef MBED_MAJOR_VERSION
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
@@ -124,14 +128,14 @@ int main()
     }
 
     // Loop until whole request sent
-    while(size) {
-        result = socket.send(sbuffer+result, size);
+    while (size) {
+        result = socket.send(sbuffer + result, size);
         if (result < 0) {
             printf("Error! socket.send() returned: %d\n", result);
             goto DISCONNECT;
         }
         size -= result;
-        printf("sent %d [%.*s]\n", result, strstr(sbuffer, "\r\n")-sbuffer, sbuffer);
+        printf("sent %d [%.*s]\n", result, strstr(sbuffer, "\r\n") - sbuffer, sbuffer);
     }
 
     // Receieve an HTTP response and print out the response line
@@ -148,11 +152,11 @@ int main()
         goto DISCONNECT;
     }
     // the HTTP response code
-    printf("recv %d [%.*s]\n", rcount, strstr(buffer, "\r\n")-buffer, buffer);
+    printf("recv %d [%.*s]\n", rcount, strstr(buffer, "\r\n") - buffer, buffer);
 
     // The api.ipify.org service also gives us the device's external IP address
-    p = strstr(buffer, "\r\n\r\n")+4;
-    printf("External IP address: %.*s\n", rcount-(p-buffer), p);
+    p = strstr(buffer, "\r\n\r\n") + 4;
+    printf("External IP address: %.*s\n", rcount - (p - buffer), p);
     delete[] buffer;
 
 DISCONNECT:
