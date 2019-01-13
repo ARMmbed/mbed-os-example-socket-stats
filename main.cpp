@@ -21,8 +21,10 @@
 #endif
 
 #define SAMPLE_TIME     10 // milli-sec
+#define COMPLETED_FLAG (1UL << 0)
 
 PlatformMutex stdio_mutex;
+EventFlags threadFlag;
 
 void print_stats()
 {
@@ -32,7 +34,7 @@ void print_stats()
     
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
     printf("%-15s%-15s%-15s%-15s%-15s%-15s%-15s\n", "Num", "ID", "State", "Proto", "Sent", "Recv", "Time");
-    while (1) 
+    while (COMPLETED_FLAG != threadFlag.get()) 
     {
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (size_t i = 0; i < count; i++) 
@@ -86,6 +88,7 @@ void print_stats()
         num++;
         ThisThread::sleep_for(SAMPLE_TIME);
     }
+    // Now allow the stats thread to simply exit by itself gracefully.
 }
 
 // Network interface
@@ -201,10 +204,10 @@ DISCONNECT:
     // Close the socket to return its memory and bring down the network interface
     socket.close();
 
-    ThisThread::sleep_for(SAMPLE_TIME);
     // Bring down the ethernet interface
     net->disconnect();
-    thread->terminate();
+    threadFlag.set(COMPLETED_FLAG);
+    thread->join();
     delete thread;
     printf("Done\n");
 }
