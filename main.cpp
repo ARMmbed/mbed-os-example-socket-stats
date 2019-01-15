@@ -42,27 +42,26 @@ void print_stats()
             printf("%-15p", stats[i].reference_id);
 
             switch (stats[i].state) {
-            case SOCK_CLOSED:
-                printf("%-15s", "Closed");
-                break;
-            case SOCK_OPEN:
-                printf("%-15s", "Open");
-                break;
-            case SOCK_CONNECTED:
-                printf("%-15s", "Connected");
-                break;
-            case SOCK_LISTEN:
-                printf("%-15s", "Listen");
-                break;
-            default:
-                printf("%-15s", "Error");
-                break;
+                case SOCK_CLOSED:
+                    printf("%-15s", "Closed");
+                    break;
+                case SOCK_OPEN:
+                    printf("%-15s", "Open");
+                    break;
+                case SOCK_CONNECTED:
+                    printf("%-15s", "Connected");
+                    break;
+                case SOCK_LISTEN:
+                    printf("%-15s", "Listen");
+                    break;
+                default:
+                    printf("%-15s", "Error");
+                    break;
             }
 
             if (NSAPI_TCP == stats[i].proto) {
                 printf("%-15s", "TCP");
-            }
-            else {
+            } else {
                 printf("%-15s", "UDP");
             }
             printf("%-15d", stats[i].sent_bytes);
@@ -140,7 +139,7 @@ int main()
     // Loop until whole request sent
     while (size) {
         result = socket.send(sbuffer + result, size);
-        if (result < 0)	{
+        if (result < 0) {
             stdio_mutex.lock();
             printf("Error! socket.send() returned: %d\n", result);
             stdio_mutex.unlock();
