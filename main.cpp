@@ -29,55 +29,40 @@ EventFlags threadFlag;
 void print_stats()
 {
     mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
-    static size_t num = 0;
-    size_t count;
+    static int num = 0;
+    int count;
     
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
     printf("%-15s%-15s%-15s%-15s%-15s%-15s%-15s\n", "Num", "ID", "State", "Proto", "Sent", "Recv", "Time");
-    while (COMPLETED_FLAG != threadFlag.get()) 
-    {
+    while (COMPLETED_FLAG != threadFlag.get()) {
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
-        for (size_t i = 0; i < count; i++) 
-	{
+        for (int i = 0; i < count; i++) {
 	    stdio_mutex.lock();
             printf("\n%-15d", num);
             printf("%-15p", stats[i].reference_id);
 
-            switch (stats[i].state) 
-	    {
+            switch (stats[i].state) {
 		case SOCK_CLOSED:
-		{
 		    printf("%-15s", "Closed"); 
 		    break;
-		}
 		case SOCK_OPEN:
-		{
 		    printf("%-15s", "Open"); 
 		    break;
-		}
 		case SOCK_CONNECTED:
-		{
 		    printf("%-15s", "Connected"); 
 		    break;
-		}
 		case SOCK_LISTEN:
-		{
 		    printf("%-15s", "Listen"); 
 		    break;
-		}
 		default:
-		{
 		    printf("%-15s", "Error"); 
 		    break;
-		}
             }
 
-            if (NSAPI_TCP == stats[i].proto) 
-	    {
+            if (NSAPI_TCP == stats[i].proto) {
                 printf("%-15s", "TCP");
             } 
-	    else 
-	    {
+	    else {
                 printf("%-15s", "UDP");
             }
             printf("%-15d", stats[i].sent_bytes);
@@ -104,15 +89,13 @@ int main()
 #endif
     net = NetworkInterface::get_default_instance();
 
-    if (!net) 
-    {
+    if (!net) {
         printf("Error! No network interface found.\n");
         return 0;
     }
 
     nsapi_size_or_error_t result = net->connect();
-    if (result != 0) 
-    {
+    if (result != 0) {
         printf("Error! net->connect() returned: %d\n", result);
         return result;
     }
@@ -135,8 +118,7 @@ int main()
     nsapi_size_t size = strlen(sbuffer);
 
     result = socket.open(net);
-    if (result != 0) 
-    {
+    if (result != 0) {
 	stdio_mutex.lock();
         printf("Error! socket.open() returned: %d\n", result);
 	stdio_mutex.unlock();
@@ -148,8 +130,7 @@ int main()
     char *p = buffer;
     
     result = socket.connect("api.ipify.org", 80);
-    if (result != 0) 
-    {
+    if (result != 0) {
 	stdio_mutex.lock();
         printf("Error! socket.connect() returned: %d\n", result);
 	stdio_mutex.unlock();
@@ -157,11 +138,9 @@ int main()
     }
 
     // Loop until whole request sent
-    while (size) 
-    {
+    while (size) {
         result = socket.send(sbuffer+result, size);
-        if (result < 0) 
-	{
+        if (result < 0)	{
 	    stdio_mutex.lock();
             printf("Error! socket.send() returned: %d\n", result);
 	    stdio_mutex.unlock();
@@ -169,19 +148,17 @@ int main()
         }
         size -= result;
 	stdio_mutex.lock();
-        printf("sent %d [%.*s]\n", result, strstr(sbuffer, "\r\n")-sbuffer, sbuffer);
+        printf("sent %d [%.*s]\n", result, strstr(sbuffer, "\r\n") - sbuffer, sbuffer);
 	stdio_mutex.unlock();
     }
 
     // Receive an HTTP response and print out the response line
-    while (0 < (result = socket.recv(p, remaining))) 
-    {
+    while (0 < (result = socket.recv(p, remaining))) {
         p += result;
         rcount += result;
         remaining -= result;
     }
-    if (result < 0) 
-    {
+    if (result < 0) {
 	stdio_mutex.lock();
         printf("Error! socket.recv() returned: %d\n", result);
 	stdio_mutex.unlock();
@@ -189,13 +166,13 @@ int main()
     }
     // the HTTP response code
     stdio_mutex.lock();
-    printf("recv %d [%.*s]\n", rcount, strstr(buffer, "\r\n")-buffer, buffer);
+    printf("recv %d [%.*s]\n", rcount, strstr(buffer, "\r\n") - buffer, buffer);
     stdio_mutex.unlock();
 
     // The api.ipify.org service also gives us the device's external IP address
     p = strstr(buffer, "\r\n\r\n")+4;
     stdio_mutex.lock();
-    printf("External IP address: %.*s\n", rcount-(p-buffer), p);
+    printf("External IP address: %.*s\n", rcount - (p - buffer), p);
     stdio_mutex.unlock();
 
 DISCONNECT:
