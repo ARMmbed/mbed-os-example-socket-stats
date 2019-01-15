@@ -81,7 +81,7 @@ NetworkInterface *net;
 int main()
 {
     // Bring up the ethernet interface
-    printf("Mbed OS Socket example\n");
+    printf("Mbed OS Socket statistics example\n");
 
 #ifdef MBED_MAJOR_VERSION
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
