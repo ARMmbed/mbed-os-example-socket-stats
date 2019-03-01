@@ -16,7 +16,7 @@
 */
 #include "mbed.h"
 
-#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLE) 
+#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLED) 
 #error [NOT_SUPPORTED] Socket Statistics not supported
 #endif
 
