@@ -6,18 +6,18 @@ Netmask: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
 Gateway: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
 Num\s+ID\s+State\s+Proto\s+Sent\s+Recv\s+Time
 
-\d\s+[0-9a-fA-F]+\s+Open\s+TCP\s+\d+\s+\d+\s+\d+
-\d\s+[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Open\s+TCP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
 sent \d+ \[GET \/ HTTP\/\d.\d\]
 
-\d\s+[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
-\d\s+[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
 recv \d+ \[HTTP\/\d.\d \d+ OK\]
 
-\d\s+[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
-\d\s+[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
 External IP address: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
 
-\d\s+[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
-\d\s+[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Connected\s+TCP\s+\d+\s+\d+\s+\d+
+\d+\s+(0x)?[0-9a-fA-F]+\s+Closed\s+UDP\s+\d+\s+\d+\s+\d+
 Done
