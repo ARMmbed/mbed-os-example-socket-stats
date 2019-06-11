@@ -1,6 +1,6 @@
 # Getting started with network socket statistics on Mbed OS
 
-This example demonstrates how you can collect statistics from network sockets. You can enable statistics with the `nsapi.socket-stats-enabled` configuration option:
+This example demonstrates how you can collect statistics from network sockets. You can enable statistics with the `nsapi.socket-stats-enabled` configuration option in `mbed_app.json`:
 
 ```
 {
