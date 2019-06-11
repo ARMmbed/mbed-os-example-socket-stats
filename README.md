@@ -14,7 +14,7 @@ This example demonstrates how you can collect statistics from network sockets. Y
 
 ### Building
 
-Invoke `mbed compile`, and specify the name of your platform and your favorite toolchain (`GCC_ARM`, `ARM`, `IAR`). For example, for the Arm Compiler 5:
+Invoke `mbed compile`, and specify the name of your platform and your favorite toolchain (`GCC_ARM`, `ARM`, `IAR`). For example, for the Arm Compiler 6:
 
 ```
 mbed compile -t <toolchain> -m <target>
