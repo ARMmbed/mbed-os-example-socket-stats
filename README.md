@@ -1,40 +1,143 @@
-# Getting started with network socket statistics on Mbed OS
+![](./resources/official_armmbed_example_badge.png)
+# Socket Statistics Mbed OS Example
 
-This example demonstrates how you can collect statistics from network sockets. You can enable statistics with the `nsapi.socket-stats-enabled` configuration option in `mbed_app.json`:
+This guide reviews the steps required to get socket statistics on an Mbed OS enabled platform.
 
+You can refer [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md) example for more information about network socket setup.
+
+You can build the project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
+
+1. [Install Mbed CLI](https://os.mbed.com/docs/mbed-os/latest/quick-start/offline-with-mbed-cli.html).
+
+1. Clone this repository on your system, and change the current directory to where the project was cloned:
+
+    ```bash
+    $ git clone git@github.com:armmbed/mbed-os-example-socket-stats && cd mbed-os-example-socket-stats
+    ```
+
+    Alternatively, you can download the example project with Arm Mbed CLI using the `import` subcommand:
+
+    ```bash
+    $ mbed import mbed-os-example-socket-stats && cd mbed-os-example-socket-stats
+    ```
+
+## Application functionality
+
+The `main()` function gets the default instance of a network interface and set up the socket connection. It also starts a thread to print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
+
+## Building and running
+
+1. Connect a USB cable between the USB port on the target and the host computer.
+1. Run this command to build the example project and program the microcontroller flash memory:
+
+    ```bash
+    $ mbed compile -m <TARGET> -t <TOOLCHAIN> --flash --sterm
+    ```
+
+(Note: You can use the Mbed CLI command-line option "--sterm" to open a serial terminal after flashing.)
+
+Your PC may take a few minutes to compile your code.
+
+The binary is located at `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-socket-stats.bin`.
+
+Alternatively, you can manually copy the binary to the target, which gets mounted on the host computer through USB.
+
+Depending on the target, you can build the example project with the `GCC_ARM`, `ARM` or `IAR` toolchain. After installing Arm Mbed CLI, run the command below to determine which toolchain supports your target:
+
+```bash
+$ mbed compile -S
+```
+
+## Expected output
+
+The serial terminal shows an output similar to the following:
+```
+--- Terminal on /dev/ttyACM0 - 9600,8,N,1 ---
+Mbed OS Socket statistics example
+IP address: 10.2.202.170
+Netmask: 255.255.255.0
+Gateway: 10.2.202.1
+
+ID: 0x2000e208
+State: Open
+Protocol: TCP
+Sent bytes: 0
+Received bytes: 0
+Time in us: 7610
+
+ID: 0x2000e050
+State: Open
+Protocol: UDP
+Sent bytes: 31
+Received bytes: 0
+Time in us: 7610
+
+ID: 0x2000e208
+State: Open
+Protocol: TCP
+Sent bytes: 0
+Received bytes: 0
+Time in us: 7610
+
+ID: 0x2000e050
+State: Closed
+Protocol: UDP
+Sent bytes: 31
+Received bytes: 257
+Time in us: 7823
+
+ID: 0x2000e208
+State: Connected
+Protocol: TCP
+Sent bytes: 58
+Received bytes: 0
+Time in us: 8040
+
+ID: 0x2000e050
+State: Closed
+Protocol: UDP
+Sent bytes: 31
+Received bytes: 257
+Time in us: 7823
+```
+The information below shows how to interpret the above fields:
+
+```
+ID:             Socket id
+State:          Socket states
+Protocol:       TCP, UDP
+Sent bytes:     Number of bytes sent through this socket  
+Received bytes: Number of bytes received through this socket
+Time in us:     When state last changed
+```
+## Network interface and Socket statistics target configuration
+
+Socket statistics can be enabled by `nsapi.socket-stats-enabled: true` and to select a network interface by `target.network-default-interface-type: ETHERNET` configuration in `mbed_app.json` as below:
 ```
 {
     "target_overrides": {
         "*": {
-            "nsapi.socket-stats-enabled": true
+            "nsapi.socket-stats-enabled": true,
+            "target.network-default-interface-type": "ETHERNET"
         }
     }
 }
 ```
+This example is configured to use `Ethernet` Network interface.
 
-### Building
+## Troubleshooting 
+If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) for suggestions on what could be wrong and how to fix it. 
 
-Invoke `mbed compile`, and specify the name of your platform and your favorite toolchain (`GCC_ARM`, `ARM`, `IAR`). For example, for the Arm Compiler 6:
+## Related links
 
-```
-mbed compile -t <toolchain> -m <target>
-```
-
-Example: `mbed compile -m K64F -t ARM`
-
-### Documentation
-
-You can find more information on the network socket API in the [Mbed OS 5 documentation](https://docs.mbed.com/docs/mbed-os-api-reference/en/latest/APIs/communication/network_sockets/).
-
-You can also find more information on the socket statistic API in the [Mbed OS 5 documentation](https://os.mbed.com/docs/latest/apis/socketstats.html).
-
- 
-### Note
-
-The current example is configured to use the Ethernet interface on supported devices. To use the example with a different interface, please follow the [socket example readme](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md). 
-Network interfaces are documented in [Mbed OS 5 documentation](https://os.mbed.com/docs/latest/apis/network-interfaces.html)
+* [Mbed OS network socket API](https://docs.mbed.com/docs/mbed-os-api-reference/en/latest/APIs/communication/network_sockets/).
+* [Mbed OS socket stats API](https://os.mbed.com/docs/latest/apis/socketstats.html).
+* [Mbed OS configuration](https://os.mbed.com/docs/latest/reference/configuration.html).
+* [Mbed OS serial communication](https://os.mbed.com/docs/latest/tutorials/serial-communication.html).
+* [Mbed boards](https://os.mbed.com/platforms/).
 
 ### License and contributions
-The software is provided under Apache-2.0 license. Contributions to this project are accepted under the same license. Please see [Contributing instructions](CONTRIBUTING.md) for more information.
 
-This project contains code from other projects. The original license text is included in those source files. They must comply with our license guide
+The software is provided under the Apache-2.0 license. Contributions to this project are accepted under the same license. Please see contributing.md for more information.
+
+This project contains code from other projects. The original license text is included in those source files. They must comply with our license guide.
