@@ -54,55 +54,45 @@ The serial terminal shows an output similar to the following:
 ```
 --- Terminal on /dev/ttyACM0 - 9600,8,N,1 ---
 Mbed OS Socket statistics example
-IP address: 10.2.202.170
+IP address: 10.2.202.163
 Netmask: 255.255.255.0
 Gateway: 10.2.202.1
 
-ID: 0x2000e208
-State: Open
-Protocol: TCP
-Sent bytes: 0
-Received bytes: 0
-Time in us: 7610
-
-ID: 0x2000e050
-State: Open
-Protocol: UDP
-Sent bytes: 31
-Received bytes: 0
-Time in us: 7610
-
-ID: 0x2000e208
-State: Open
-Protocol: TCP
-Sent bytes: 0
-Received bytes: 0
-Time in us: 7610
-
-ID: 0x2000e050
-State: Closed
-Protocol: UDP
-Sent bytes: 31
-Received bytes: 257
-Time in us: 7823
-
-ID: 0x2000e208
-State: Connected
-Protocol: TCP
-Sent bytes: 58
-Received bytes: 0
-Time in us: 8040
-
-ID: 0x2000e050
-State: Closed
-Protocol: UDP
-Sent bytes: 31
-Received bytes: 257
-Time in us: 7823
+Num: 1    ID: 0x2000e208    State: Open      Proto: TCP    Sent: 0    Recv: 0    Time: 7610
+Num: 1    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 2    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 2    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 3    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 3    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 4    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 4    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 5    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 5    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 6    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 6    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 7    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 7    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 8    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 8    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 9    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 9    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 10    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 10    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 11    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 11    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 12    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 12    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 13    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 13    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 14    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 14    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Num: 15    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Num: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
 ```
 The information below shows how to interpret the above fields:
 
 ```
+Num:            Number of times socket state changes and repeated the same value to indicate TCP and UDP
 ID:             Socket id
 State:          Socket states
 Protocol:       TCP, UDP

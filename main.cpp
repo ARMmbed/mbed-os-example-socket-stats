@@ -29,6 +29,7 @@ EventFlags threadFlag;
 void print_socket_stats()
 {
     mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
+    static int num = 0;
     int count;
 
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
@@ -36,36 +37,39 @@ void print_socket_stats()
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (int i = 0; i < count; i++) {
             stdio_mutex.lock();
-            printf("ID: %p\n", stats[i].reference_id);
+            printf("Num: %d   ", num);
+            printf(" ID: %p   ", stats[i].reference_id);
 
             switch (stats[i].state) {
                 case SOCK_CLOSED:
-                    printf("State: Closed\n");
+                    printf(" State: Closed   ");
                     break;
                 case SOCK_OPEN:
-                    printf("State: Open\n");
+                    printf(" State: Open     ");
                     break;
                 case SOCK_CONNECTED:
-                    printf("State: Connected\n");
+                    printf(" State: Connected");
                     break;
                 case SOCK_LISTEN:
-                    printf("State: Listen\n");
+                    printf(" State: Listen   ");
                     break;
                 default:
-                    printf("State: Error\n");
+                    printf(" State: Error   ");
                     break;
             }
 
             if (NSAPI_TCP == stats[i].proto) {
-                printf("Protocol: TCP\n");
+                printf(" Proto: TCP   ");
             } else {
-                printf("Protocol: UDP\n");
+                printf(" Proto: UDP   ");
             }
-            printf("Sent bytes: %d\n", stats[i].sent_bytes);
-            printf("Received bytes: %d\n", stats[i].recv_bytes);
-            printf("Time in us: %lld\n\n", stats[i].last_change_tick);
+
+            printf(" Sent: %d   ", stats[i].sent_bytes);
+            printf(" Recv: %d   ", stats[i].recv_bytes);
+            printf(" Time: %lld\n", stats[i].last_change_tick);
             stdio_mutex.unlock();
         }
+        num++;
         ThisThread::sleep_for(SAMPLE_TIME_MS);
     }
     // Now allow the stats thread to simply exit by itself gracefully.
