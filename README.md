@@ -35,7 +35,7 @@ This application enables socket statistics by setting `nsapi.socket-stats-enable
 }
 ```
 
-The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
+The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as `ID`, `State`, `Proto`, `Sent`, `Recv`, `Time` on the serial interface.
 
 ### Note
 
@@ -108,7 +108,7 @@ Iteration: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Re
 The information below shows how to interpret the above fields:
 
 ```
-Iteration:      Number of times socket state changes and repeated the same value to indicate TCP and UDP
+Iteration:      Number of times socket state changes
 ID:             Socket id
 State:          Socket states
 Protocol:       TCP, UDP
