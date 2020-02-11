@@ -23,8 +23,19 @@ You can build the project with all supported [Mbed OS build tools](https://os.mb
 
 ## Application functionality
 
-- This application enables socket statistics by setting `nsapi.socket-stats-enabled` to true in mbed_app.json. 
-- The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
+This application enables socket statistics by setting `nsapi.socket-stats-enabled` to true in mbed_app.json:
+
+```
+{
+    "target_overrides": {
+        "*": {
+            "nsapi.socket-stats-enabled": true
+        }
+    }
+}
+```
+
+The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
 
 ### Note
 
@@ -63,41 +74,41 @@ IP address: 10.2.202.163
 Netmask: 255.255.255.0
 Gateway: 10.2.202.1
 
-Num: 1    ID: 0x2000e208    State: Open      Proto: TCP    Sent: 0    Recv: 0    Time: 7610
-Num: 1    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 2    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 2    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 3    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 3    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 4    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 4    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 5    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 5    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 6    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 6    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 7    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 7    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 8    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 8    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 9    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 9    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 10    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 10    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 11    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 11    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 12    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 12    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 13    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 13    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 14    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 14    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
-Num: 15    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
-Num: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 1    ID: 0x2000e208    State: Open      Proto: TCP    Sent: 0    Recv: 0    Time: 7610
+Iteration: 1    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 2    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 2    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 3    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 3    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 4    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 4    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 5    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 5    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 6    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 6    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 7    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 7    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 8    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 8    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 9    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 9    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 10    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 10    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 11    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 11    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 12    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 12    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 13    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 13    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 14    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 14    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+Iteration: 15    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
+Iteration: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
 ```
 The information below shows how to interpret the above fields:
 
 ```
-Num:            Number of times socket state changes and repeated the same value to indicate TCP and UDP
+Iteration:      Number of times socket state changes and repeated the same value to indicate TCP and UDP
 ID:             Socket id
 State:          Socket states
 Protocol:       TCP, UDP
