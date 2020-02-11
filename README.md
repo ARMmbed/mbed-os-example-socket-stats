@@ -1,7 +1,7 @@
 ![](./resources/official_armmbed_example_badge.png)
 # Socket Statistics Mbed OS Example
 
-This guide reviews the steps required to get socket statistics on an Mbed OS enabled platform.
+This example demonstrates how you can collect statistics from network sockets on an Mbed OS enabled platform.
 
 You can refer [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md) example for more information about network socket setup.
 
@@ -23,7 +23,12 @@ You can build the project with all supported [Mbed OS build tools](https://os.mb
 
 ## Application functionality
 
-The `main()` function gets the default instance of a network interface and set up the socket connection. It also starts a thread to print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
+- This application enables socket statistics by setting `nsapi.socket-stats-enabled` to true in mbed_app.json. 
+- The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as  `reference_id`, `state`, `proto`, `sent_bytes`, `recv_bytes`, `last_change_tick` on the serial interface.
+
+### Note
+
+The current example is configured to use the Ethernet interface on supported devices. To use the example with a different interface, please follow the [socket example readme](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md).
 
 ## Building and running
 
@@ -100,26 +105,13 @@ Sent bytes:     Number of bytes sent through this socket
 Received bytes: Number of bytes received through this socket
 Time in us:     When state last changed
 ```
-## Network interface and Socket statistics target configuration
-
-Socket statistics can be enabled by `nsapi.socket-stats-enabled: true` and to select a network interface by `target.network-default-interface-type: ETHERNET` configuration in `mbed_app.json` as below:
-```
-{
-    "target_overrides": {
-        "*": {
-            "nsapi.socket-stats-enabled": true,
-            "target.network-default-interface-type": "ETHERNET"
-        }
-    }
-}
-```
-This example is configured to use `Ethernet` Network interface.
 
 ## Troubleshooting 
 If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) for suggestions on what could be wrong and how to fix it. 
 
 ## Related links
 
+* [Mbed OS Network interfaces](https://os.mbed.com/docs/latest/apis/network-interfaces.html)
 * [Mbed OS network socket API](https://docs.mbed.com/docs/mbed-os-api-reference/en/latest/APIs/communication/network_sockets/).
 * [Mbed OS socket stats API](https://os.mbed.com/docs/latest/apis/socketstats.html).
 * [Mbed OS configuration](https://os.mbed.com/docs/latest/reference/configuration.html).

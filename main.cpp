@@ -29,7 +29,7 @@ EventFlags threadFlag;
 void print_socket_stats()
 {
     mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
-    static int num = 0;
+    static int iteration = 0;
     int count;
 
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
@@ -37,7 +37,7 @@ void print_socket_stats()
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (int i = 0; i < count; i++) {
             stdio_mutex.lock();
-            printf("Num: %d   ", num);
+            printf("Iteration: %d   ", iteration);
             printf(" ID: %p   ", stats[i].reference_id);
 
             switch (stats[i].state) {
@@ -69,7 +69,7 @@ void print_socket_stats()
             printf(" Time: %lld\n", stats[i].last_change_tick);
             stdio_mutex.unlock();
         }
-        num++;
+        iteration++;
         ThisThread::sleep_for(SAMPLE_TIME_MS);
     }
     // Now allow the stats thread to simply exit by itself gracefully.
@@ -164,9 +164,6 @@ int main()
         stdio_mutex.unlock();
         goto DISCONNECT;
     }
-
-    // The api.ipify.org service also gives us the device's external IP address
-    p = strstr(buffer, "\r\n\r\n") + 4;
 
 DISCONNECT:
     delete[] buffer;
