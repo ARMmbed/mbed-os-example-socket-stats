@@ -1,9 +1,9 @@
 ![](./resources/official_armmbed_example_badge.png)
-# Socket Statistics Mbed OS Example
+# Socket statistics Mbed OS example
 
-This example demonstrates how you can collect statistics from network sockets on an Mbed OS enabled platform.
+This example demonstrates how you can collect statistics from network sockets on an Mbed OS Enabled platform.
 
-You can refer [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md) example for more information about network socket setup.
+Please refer to the [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md) example for more information about network socket setup.
 
 You can build the project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
 
@@ -23,7 +23,7 @@ You can build the project with all supported [Mbed OS build tools](https://os.mb
 
 ## Application functionality
 
-This application enables socket statistics by setting `nsapi.socket-stats-enabled` to true in mbed_app.json:
+This application enables socket statistics by setting `nsapi.socket-stats-enabled` to true in `mbed_app.json`:
 
 ```
 {
@@ -35,11 +35,11 @@ This application enables socket statistics by setting `nsapi.socket-stats-enable
 }
 ```
 
-The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics such as `ID`, `State`, `Proto`, `Sent`, `Recv`, `Time` on the serial interface.
+The `main()` function opens a socket on the Ethernet interface and creates a TCP connection to generate some data traffic. It also starts a thread to periodically print socket statistics, such as `ID`, `State`, `Proto`, `Sent`, `Recv` and `Time` on the serial interface.
 
 ### Note
 
-The current example is configured to use the Ethernet interface on supported devices. To use the example with a different interface, please follow the [socket example readme](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md).
+The current example is configured to use the Ethernet interface on supported devices. To use the example with a different interface, please follow the [socket example README](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md).
 
 ## Building and running
 
@@ -66,7 +66,8 @@ $ mbed compile -S
 
 ## Expected output
 
-The serial terminal shows an output similar to the following:
+The serial terminal shows an output similar to:
+
 ```
 --- Terminal on /dev/ttyACM0 - 9600,8,N,1 ---
 Mbed OS Socket statistics example
@@ -105,6 +106,7 @@ Iteration: 14    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Re
 Iteration: 15    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
 Iteration: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
 ```
+
 The information below shows how to interpret the above fields:
 
 ```
@@ -118,16 +120,17 @@ Time in us:     When state last changed
 ```
 
 ## Troubleshooting 
+
 If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) for suggestions on what could be wrong and how to fix it. 
 
 ## Related links
 
-* [Mbed OS Network interfaces](https://os.mbed.com/docs/latest/apis/network-interfaces.html)
-* [Mbed OS network socket API](https://docs.mbed.com/docs/mbed-os-api-reference/en/latest/APIs/communication/network_sockets/).
-* [Mbed OS socket stats API](https://os.mbed.com/docs/latest/apis/socketstats.html).
-* [Mbed OS configuration](https://os.mbed.com/docs/latest/reference/configuration.html).
-* [Mbed OS serial communication](https://os.mbed.com/docs/latest/tutorials/serial-communication.html).
-* [Mbed boards](https://os.mbed.com/platforms/).
+- [Mbed OS Network interfaces](https://os.mbed.com/docs/latest/apis/network-interfaces.html)
+- [Mbed OS network socket API](https://docs.mbed.com/docs/mbed-os-api-reference/en/latest/APIs/communication/network_sockets/).
+- [Mbed OS socket stats API](https://os.mbed.com/docs/latest/apis/socketstats.html).
+- [Mbed OS configuration](https://os.mbed.com/docs/latest/reference/configuration.html).
+- [Mbed OS serial communication](https://os.mbed.com/docs/latest/tutorials/serial-communication.html).
+- [Mbed boards](https://os.mbed.com/platforms/).
 
 ### License and contributions
 
