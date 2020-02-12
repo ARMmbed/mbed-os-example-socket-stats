@@ -16,20 +16,20 @@
 */
 #include "mbed.h"
 
-#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLED) 
+#if !defined(MBED_CONF_NSAPI_SOCKET_STATS_ENABLED)
 #error [NOT_SUPPORTED] Socket Statistics not supported
 #endif
 
-#define SAMPLE_TIME     10 // milli-sec
+#define SAMPLE_TIME_MS 10
 #define COMPLETED_FLAG (1UL << 0)
 
 PlatformMutex stdio_mutex;
 EventFlags threadFlag;
 
-void print_stats()
+void print_socket_stats()
 {
     mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
-    static int num = 0;
+    static int iteration = 0;
     int count;
 
     memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
@@ -37,39 +37,40 @@ void print_stats()
         count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (int i = 0; i < count; i++) {
             stdio_mutex.lock();
-            printf("Num: %d", num);
-            printf(" ID: %p", stats[i].reference_id);
+            printf("Iteration: %d   ", iteration);
+            printf(" ID: %p   ", stats[i].reference_id);
 
             switch (stats[i].state) {
                 case SOCK_CLOSED:
-                    printf(" State: Closed");
+                    printf(" State: Closed   ");
                     break;
                 case SOCK_OPEN:
-                    printf(" State: Open");
+                    printf(" State: Open     ");
                     break;
                 case SOCK_CONNECTED:
                     printf(" State: Connected");
                     break;
                 case SOCK_LISTEN:
-                    printf(" State: Listen");
+                    printf(" State: Listen   ");
                     break;
                 default:
-                    printf(" State: Error");
+                    printf(" State: Error   ");
                     break;
             }
 
             if (NSAPI_TCP == stats[i].proto) {
-                printf(" Proto: TCP");
+                printf(" Proto: TCP   ");
             } else {
-                printf(" Proto: UDP");
+                printf(" Proto: UDP   ");
             }
-            printf(" Sent: %d", stats[i].sent_bytes);
-            printf(" Recv: %d", stats[i].recv_bytes);
+
+            printf(" Sent: %d   ", stats[i].sent_bytes);
+            printf(" Recv: %d   ", stats[i].recv_bytes);
             printf(" Time: %lld\n", stats[i].last_change_tick);
             stdio_mutex.unlock();
         }
-        num++;
-        ThisThread::sleep_for(SAMPLE_TIME);
+        iteration++;
+        ThisThread::sleep_for(SAMPLE_TIME_MS);
     }
     // Now allow the stats thread to simply exit by itself gracefully.
 }
@@ -82,9 +83,6 @@ int main()
     // Bring up the ethernet interface
     printf("Mbed OS Socket statistics example\n");
 
-#ifdef MBED_MAJOR_VERSION
-    printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
-#endif
     net = NetworkInterface::get_default_instance();
 
     if (!net) {
@@ -105,10 +103,10 @@ int main()
     net->get_netmask(&a);
     printf("Netmask: %s\n", a.get_ip_address() ? a.get_ip_address() : "None");
     net->get_gateway(&a);
-    printf("Gateway: %s\n", a.get_ip_address() ? a.get_ip_address() : "None");
+    printf("Gateway: %s\n\n", a.get_ip_address() ? a.get_ip_address() : "None");
 
     Thread *thread = new Thread(osPriorityNormal1, 2048);
-    thread->start(print_stats);
+    thread->start(print_socket_stats);
 
     // Open a socket on the network interface, and create a TCP connection to api.ipify.org
     TCPSocket socket;
@@ -152,9 +150,6 @@ int main()
             goto DISCONNECT;
         }
         size -= result;
-        stdio_mutex.lock();
-        printf("sent %d [%.*s]\n", result, strstr(sbuffer, "\r\n") - sbuffer, sbuffer);
-        stdio_mutex.unlock();
     }
 
     // Receive an HTTP response and print out the response line
@@ -169,16 +164,6 @@ int main()
         stdio_mutex.unlock();
         goto DISCONNECT;
     }
-    // the HTTP response code
-    stdio_mutex.lock();
-    printf("recv %d [%.*s]\n", rcount, strstr(buffer, "\r\n") - buffer, buffer);
-    stdio_mutex.unlock();
-
-    // The api.ipify.org service also gives us the device's external IP address
-    p = strstr(buffer, "\r\n\r\n") + 4;
-    stdio_mutex.lock();
-    printf("External IP address: %.*s\n", rcount - (p - buffer), p);
-    stdio_mutex.unlock();
 
 DISCONNECT:
     delete[] buffer;
@@ -191,5 +176,4 @@ DISCONNECT:
     threadFlag.set(COMPLETED_FLAG);
     thread->join();
     delete thread;
-    printf("Done\n");
 }
