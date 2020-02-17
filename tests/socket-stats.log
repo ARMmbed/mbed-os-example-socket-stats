@@ -1,18 +1,10 @@
 Mbed OS Socket statistics example
-Mbed OS version:
-
 IP address: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
 Netmask: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
 Gateway: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Open Proto: TCP Sent: \d+ Recv: \d+ Time: \d+
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Closed Proto: UDP Sent: \d+ Recv: \d+ Time: \d+
-sent \d+ \[GET \/ HTTP\/\d.\d\]
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Connected Proto: TCP Sent: \d+ Recv: \d+ Time: \d+
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Closed Proto: UDP Sent: \d+ Recv: \d+ Time: \d+
-recv \d+ \[HTTP\/\d.\d \d+ OK\]
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Connected Proto: TCP Sent: \d+ Recv: \d+ Time: \d+
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Closed Proto: UDP Sent: \d+ Recv: \d+ Time: \d+
-External IP address: (?:[0-9]{1,3}\.){3}[0-9]{1,3}
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Connected Proto: TCP Sent: \d+ Recv: \d+ Time: \d+
-Num: \d+ ID: (0x)?[0-9a-fA-F]+ State: Closed Proto: UDP Sent: \d+ Recv: \d+ Time: \d+
-Done
+
+Iteration: \d+    ID: (0x)?[0-9a-fA-F]+    State: Open      Proto: TCP    Sent: \d+    Recv: \d+    Time: \d+
+Iteration: \d+    ID: (0x)?[0-9a-fA-F]+    State: Closed    Proto: UDP    Sent: \d+    Recv: \d+    Time: \d+
+Iteration: \d+    ID: (0x)?[0-9a-fA-F]+    State: Connected Proto: TCP    Sent: \d+    Recv: \d+    Time: \d+
+Iteration: \d+    ID: (0x)?[0-9a-fA-F]+    State: Closed    Proto: UDP    Sent: \d+    Recv: \d+    Time: \d+
+End of Mbed OS Socket statistics example

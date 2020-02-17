@@ -28,13 +28,11 @@ EventFlags threadFlag;
 
 void print_socket_stats()
 {
-    mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT];
-    static int iteration = 0;
-    int count;
+    mbed_stats_socket_t stats[MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT] = {0};
+    int iteration = 0;
 
-    memset(&stats[0], 0, sizeof(mbed_stats_socket_t) * MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
     while (COMPLETED_FLAG != threadFlag.get()) {
-        count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
+        int count = SocketStats::mbed_stats_socket_get_each(&stats[0], MBED_CONF_NSAPI_SOCKET_STATS_MAX_COUNT);
         for (int i = 0; i < count; i++) {
             stdio_mutex.lock();
             printf("Iteration: %d   ", iteration);
@@ -170,10 +168,13 @@ DISCONNECT:
 
     // Close the socket to return its memory and bring down the network interface
     socket.close();
-
     // Bring down the ethernet interface
     net->disconnect();
+    ThisThread::sleep_for(SAMPLE_TIME_MS);
+
     threadFlag.set(COMPLETED_FLAG);
     thread->join();
     delete thread;
+
+    printf("End of Mbed OS Socket statistics example\n");
 }
