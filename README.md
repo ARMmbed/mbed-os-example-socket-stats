@@ -105,6 +105,7 @@ Iteration: 14    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Re
 Iteration: 14    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
 Iteration: 15    ID: 0x2000e208    State: Connected Proto: TCP    Sent: 58    Recv: 0    Time: 7815
 Iteration: 15    ID: 0x2000e050    State: Closed    Proto: UDP    Sent: 31    Recv: 257    Time: 7615
+End of Mbed OS Socket statistics example
 ```
 
 The information below shows how to interpret the above fields:
