@@ -7,19 +7,9 @@ Please refer to the [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os
 
 You can build the project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
 
-1. [Install Mbed CLI](https://os.mbed.com/docs/mbed-os/latest/quick-start/offline-with-mbed-cli.html).
-
-1. Clone this repository on your system, and change the current directory to where the project was cloned:
-
-    ```bash
-    $ git clone git@github.com:armmbed/mbed-os-example-socket-stats && cd mbed-os-example-socket-stats
-    ```
-
-    Alternatively, you can download the example project with Arm Mbed CLI using the `import` subcommand:
-
-    ```bash
-    $ mbed import mbed-os-example-socket-stats && cd mbed-os-example-socket-stats
-    ```
+1. Install Mbed CLI.
+1. From the command-line, import the example: `mbed import mbed-os-example-socket-stats`
+1. Change the current directory to where the project was imported.
 
 ## Application functionality
 
@@ -44,6 +34,7 @@ The current example is configured to use the Ethernet interface on supported dev
 ## Building and running
 
 1. Connect a USB cable between the USB port on the target and the host computer.
+1. Connect the target Ethernet port to the internet.
 1. Run this command to build the example project and program the microcontroller flash memory:
 
     ```bash
