@@ -5,9 +5,18 @@ This example demonstrates how you can collect statistics from network sockets on
 
 Please refer to the [mbed-os-example-sockets](https://github.com/ARMmbed/mbed-os-example-sockets/blob/master/README.md) example for more information about network socket setup.
 
-You can build the project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html). However, this example project specifically refers to the command-line interface tool [Arm Mbed CLI](https://github.com/ARMmbed/mbed-cli#installing-mbed-cli).
+You can build the project with all supported [Mbed OS build tools](https://os.mbed.com/docs/mbed-os/latest/tools/index.html).
 
-1. Install Mbed CLI.
+## Mbed OS build tools
+
+### Mbed CLI 2
+Starting with version 6.5, Mbed OS uses Mbed CLI 2. It uses Ninja as a build system, and CMake to generate the build environment and manage the build process in a compiler-independent manner. If you are working with Mbed OS version prior to 6.5 then check the section [Mbed CLI 1](#mbed-cli-1).
+1. [Install Mbed CLI 2](https://os.mbed.com/docs/mbed-os/latest/build-tools/install-or-upgrade.html).
+1. From the command-line, import the example: `mbed-tools import mbed-os-example-socket-stats`
+1. Change the current directory to where the project was imported.
+
+### Mbed CLI 1
+1. [Install Mbed CLI 1](https://os.mbed.com/docs/mbed-os/latest/quick-start/offline-with-mbed-cli.html).
 1. From the command-line, import the example: `mbed import mbed-os-example-socket-stats`
 1. Change the current directory to where the project was imported.
 
@@ -37,23 +46,27 @@ The current example is configured to use the Ethernet interface on supported dev
 1. Connect the target Ethernet port to the internet.
 1. Run this command to build the example project and program the microcontroller flash memory:
 
+    * Mbed CLI 2
+
     ```bash
-    $ mbed compile -m <TARGET> -t <TOOLCHAIN> --flash --sterm
+    $ mbed-tools compile -m <TARGET> -t <TOOLCHAIN> --flash
+    ```
+
+    * Mbed CLI 1
+
+    ```bash
+    $ mbed compile -m <TARGET> -t <TOOLCHAIN> --flash
     ```
 
 (Note: You can use the Mbed CLI command-line option "--sterm" to open a serial terminal after flashing.)
 
 Your PC may take a few minutes to compile your code.
 
-The binary is located at `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-socket-stats.bin`.
+The binary is located at:
+* **Mbed CLI2** - `./cmake_build/<TARGET>/<PROFILE>/<TOOLCHAIN>/mbed-os-example-socket-stats.bin`.
+* **Mbed CLI1** - `./BUILD/<TARGET>/<TOOLCHAIN>/mbed-os-example-socket-stats.bin`.
 
 Alternatively, you can manually copy the binary to the target, which gets mounted on the host computer through USB.
-
-Depending on the target, you can build the example project with the `GCC_ARM`, `ARM` or `IAR` toolchain. After installing Arm Mbed CLI, run the command below to determine which toolchain supports your target:
-
-```bash
-$ mbed compile -S
-```
 
 ## Expected output
 
